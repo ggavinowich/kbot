@@ -36,9 +36,15 @@ class Factura
         puts "Descuento aplicado #{@descuento}"
     end
 
+    def calcular_valor_final
+        @valor_final = @costo_fob  - (@costo_fob * @descuento) + (@costo_fob * @impuesto)
+        puts "Costo con impuesto y descuentos aplicados #{@valor_final}" 
+    end
+
 end
 
 factura = Factura.new ARGV[0], ARGV[1], ARGV[2]
 factura.calcular_precio
 factura.obtener_impuesto
 factura.obtener_descuento
+factura.calcular_valor_final
