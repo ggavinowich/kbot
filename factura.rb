@@ -61,6 +61,8 @@ class Factura
             @descuento = 0.05
         elsif @costo_fob.between?(7000+1, 10000)
             @descuento = 0.07
+        elsif @costo_fob.between?(10000+1, 15000)
+            @descuento = 0.10
         else
             @descuento = 0.0
         end    
