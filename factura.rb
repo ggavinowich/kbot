@@ -1,5 +1,6 @@
 class Factura
     CALIFORNIA = "CA" 
+    UTATH = "UT"
 
     def initialize(cantidad, precio, estado)
         @cantidad = cantidad.to_f
@@ -21,6 +22,8 @@ class Factura
     def obtener_impuesto()
         if @estado.eql? CALIFORNIA
             @impuesto = 0.0825
+        elsif @estado.eql? UTATH
+            @impuesto = 0.0685
         else
             @impuesto = 0.0
         end    
