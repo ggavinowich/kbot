@@ -14,6 +14,8 @@ class Factura
         elsif cantidad_argumentos == 1
             puts "Ingrese un precio"
             error = true
+        elsif cantidad_argumentos == 2
+            puts "No se ha ingresado un estado, no se aplicará un impuesto"
         end
 
         if error
