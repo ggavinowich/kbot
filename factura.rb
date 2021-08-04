@@ -50,6 +50,7 @@ class Factura
         @estado_normalizado = []
         verificar_cantidad_argumentos(cantidad_argumentos)
         verificar_contenido_argumentos(cantidad, precio, estado)
+        verificar_estado(cantidad_argumentos)
         puts "Cantidad ingresada es #{@cantidad}"
         puts "Precio ingresado es #{@precio}"
         puts "Estado ingresado es #{@estado_ingresado}"
@@ -58,6 +59,15 @@ class Factura
     def calcular_precio
         @costo_fob = @cantidad * @precio
         puts "El costo sin impuesto ni descuento es #{@costo_fob}"
+    end
+
+    def verificar_estado(cantidad_argumentos)
+        if cantidad_argumentos == 3
+            obtener_estado()
+            if @estado_normalizado == ""
+                puts "El estado ingresado no tiene un impuesto asociado o es inválido"
+            end
+        end
     end
 
     def obtener_estado
@@ -79,7 +89,6 @@ class Factura
 
 
     def obtener_impuesto()        
-        obtener_estado()
         if IMPUESTO.include?(@estado_normalizado)
             @impuesto = IMPUESTO[@estado_normalizado]
         else
