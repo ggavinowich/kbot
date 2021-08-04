@@ -1,17 +1,21 @@
 class Factura
-    CALIFORNIA = "CA" 
-    UTATH = "UT"
+    CALIFORNIA = ["CA", "CALIFORNIA"] 
+    UTAH = ["UT", "UTAH"]
+    NEVADA = ["NV", "NEVADA"]
+    IMPUESTO = {"CA" => 0.0825, "UT" => 0.0625, "NV" => 0.08}
+
 
     def initialize(cantidad, precio, estado)
         @cantidad = cantidad.to_f
         @precio = precio.to_f
-        @estado = estado
+        @estado_ingresado = estado
         @valor_final = 0.0
         @impuesto = 0.0
         @descuento = 0.0
+        @estado_normalizado = []
         puts "Cantidad ingresada es #{@cantidad}"
         puts "Precio ingresado es #{@precio}"
-        puts "Estado ingresado es #{@estado}"
+        puts "Estado ingresado es #{@estado_ingresado}"
     end
 
     def calcular_precio
@@ -19,14 +23,28 @@ class Factura
         puts "El costo sin impuesto ni descuento es #{@costo_fob}"
     end
 
-    def obtener_impuesto()
-        if @estado.eql? CALIFORNIA
-            @impuesto = 0.0825
-        elsif @estado.eql? UTATH
-            @impuesto = 0.0685
+    def obtener_estado
+        if CALIFORNIA.include?(@estado_ingresado)
+            @estado_normalizado = "CA"
+        elsif UTAH.include?(@estado_ingresado)
+            @estado_normalizado = "UT"
+        elsif NEVADA.include?(@estado_ingresado)
+            @estado_normalizado = "NV"
         else
-            @impuesto = 0.0
-        end    
+            @estado_normalizado = ""
+        end
+        puts "Estado normalizado #{@estado_normalizado}"    
+    end   
+
+
+    def obtener_impuesto()        
+        obtener_estado()
+        if IMPUESTO.include?(@estado_normalizado)
+            @impuesto = IMPUESTO[@estado_normalizado]
+        else
+            @impuesto = 0.0    
+        end
+        
         puts "Impuesto aplicado #{@impuesto}"
     end
 
