@@ -39,7 +39,7 @@ class Factura
         else
             @estado_normalizado = ""
         end
-        puts "Estado normalizado #{@estado_normalizado}"    
+        puts "Estado normalizado #{@estado_normalizado}"
     end   
 
 
@@ -55,8 +55,10 @@ class Factura
     end
 
     def obtener_descuento
-        if  (1000 < @costo_fob) and (@costo_fob <= 5000)
+        if @costo_fob.between?(1000+1, 5000)
             @descuento = 0.03
+        elsif @costo_fob.between?(5000+1, 7000)
+            @descuento = 0.05
         else
             @descuento = 0.0
         end    
