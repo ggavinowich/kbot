@@ -7,11 +7,15 @@ class Factura
     ALABAMA = ["AL", "ALABAMA"]
     IMPUESTO = {"CA" => 0.0825, "UT" => 0.0625, "NV" => 0.08, "TX" => 0.0625, "AL" => 0.04}
 
-    def verificar_cantidad_argumentos(cantidad)
-        if cantidad == 0
+    def verificar_cantidad_argumentos(cantidad_argumentos)
+        if cantidad_argumentos == 0
             puts "Ingrese una cantidad"
             error = true
+        elsif cantidad_argumentos == 1
+            puts "Ingrese un precio"
+            error = true
         end
+        
         if error
             puts USAGE
             exit
