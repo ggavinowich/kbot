@@ -7,7 +7,7 @@ class Factura
     ALABAMA = ["AL", "ALABAMA"]
     IMPUESTO = {"CA" => 0.0825, "UT" => 0.0625, "NV" => 0.08, "TX" => 0.0625, "AL" => 0.04}
 
-    def verificar_argumentos(cantidad)
+    def verificar_cantidad_argumentos(cantidad)
         if cantidad == 0
             puts "Ingrese una cantidad"
             error = true
@@ -18,7 +18,18 @@ class Factura
         end
     end
 
-    def initialize(cantidad, precio, estado)
+    def verificar_contenido_argumentos(cantidad, precio, estado)
+        if not Integer(cantidad, exception: false)
+            puts "Cantidad debe ser un número"
+            error = true
+        end
+        if error
+            puts USAGE
+            exit
+        end       
+    end
+
+    def initialize(cantidad_argumentos, cantidad, precio, estado)
         @cantidad = cantidad.to_f
         @precio = precio.to_f
         @estado_ingresado = estado
@@ -26,7 +37,8 @@ class Factura
         @impuesto = 0.0
         @descuento = 0.0
         @estado_normalizado = []
-        verificar_argumentos(ARGV.length)
+        verificar_cantidad_argumentos(cantidad_argumentos)
+        verificar_contenido_argumentos(cantidad, precio, estado)
         puts "Cantidad ingresada es #{@cantidad}"
         puts "Precio ingresado es #{@precio}"
         puts "Estado ingresado es #{@estado_ingresado}"
@@ -90,7 +102,7 @@ class Factura
 
 end
 
-factura = Factura.new ARGV[0], ARGV[1], ARGV[2]
+factura = Factura.new ARGV.length, ARGV[0], ARGV[1], ARGV[2]
 factura.calcular_precio
 factura.obtener_impuesto
 factura.obtener_descuento
