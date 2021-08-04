@@ -15,7 +15,7 @@ class Factura
             puts "Ingrese un precio"
             error = true
         end
-        
+
         if error
             puts USAGE
             exit
@@ -27,6 +27,11 @@ class Factura
             puts "Cantidad debe ser un número"
             error = true
         end
+        if not Float(precio, exception: false)
+            puts "Precio debe ser un número"
+            error = true
+        end
+
         if error
             puts USAGE
             exit
