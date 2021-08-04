@@ -2,7 +2,8 @@ class Factura
     CALIFORNIA = ["CA", "CALIFORNIA"] 
     UTAH = ["UT", "UTAH"]
     NEVADA = ["NV", "NEVADA"]
-    IMPUESTO = {"CA" => 0.0825, "UT" => 0.0625, "NV" => 0.08}
+    TEXAS = ["TX", "TEXAS"]
+    IMPUESTO = {"CA" => 0.0825, "UT" => 0.0625, "NV" => 0.08, "TX" => 0.0625}
 
 
     def initialize(cantidad, precio, estado)
@@ -30,6 +31,8 @@ class Factura
             @estado_normalizado = "UT"
         elsif NEVADA.include?(@estado_ingresado)
             @estado_normalizado = "NV"
+        elsif TEXAS.include?(@estado_ingresado)
+            @estado_normalizado = "TX"        
         else
             @estado_normalizado = ""
         end
