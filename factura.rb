@@ -1,4 +1,5 @@
 class Factura
+    USAGE = "Usage: \nruby factura.rb CANTIDAD PRECIO [ESTADO]"
     CALIFORNIA = ["CA", "CALIFORNIA"] 
     UTAH = ["UT", "UTAH"]
     NEVADA = ["NV", "NEVADA"]
@@ -6,6 +7,16 @@ class Factura
     ALABAMA = ["AL", "ALABAMA"]
     IMPUESTO = {"CA" => 0.0825, "UT" => 0.0625, "NV" => 0.08, "TX" => 0.0625, "AL" => 0.04}
 
+    def verificar_argumentos(cantidad)
+        if cantidad == 0
+            puts "Ingrese una cantidad"
+            error = true
+        end
+        if error
+            puts USAGE
+            exit
+        end
+    end
 
     def initialize(cantidad, precio, estado)
         @cantidad = cantidad.to_f
@@ -15,6 +26,7 @@ class Factura
         @impuesto = 0.0
         @descuento = 0.0
         @estado_normalizado = []
+        verificar_argumentos(ARGV.length)
         puts "Cantidad ingresada es #{@cantidad}"
         puts "Precio ingresado es #{@precio}"
         puts "Estado ingresado es #{@estado_ingresado}"
